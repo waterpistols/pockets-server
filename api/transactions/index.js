@@ -9,20 +9,7 @@ exports.list = function* () {
 
   this.auth();
 
-  // Get user info
-  var options = this.state.apiOptions;
-  options.uri += 'commonapi/persons/' + this.state.userId + '/transactions'
-
-  try {
-    var response = yield rp(options);
-    if(response) {
-      this.body = response;
-    } else {
-      this.body = 'Not Found';
-    }
-  } catch(error) {
-    this.body = 'Not Found';
-  }
+  this.body = yield Transaction.find({ userId: this.state.mongoUserId });
 }
 
 exports.sync = function* () {

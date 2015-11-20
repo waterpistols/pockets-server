@@ -7,6 +7,7 @@ module.exports = function* (next) {
     if(user) {
       this.state.token = user.token;
       this.state.userId = user.userId;
+      this.state.mongoUserId = user._id;
     } else {
       this.throw(404);
     }
