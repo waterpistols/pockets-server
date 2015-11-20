@@ -15,7 +15,7 @@ mongoose.connection.on('open', function() { console.log('Mongo Connected!') });
 mongoose.connection.on('error', function(err) { console.log(err) });
 
 // Routes
-router.get('/pockets', pockets.list);
+router.get('/v1/pockets', pockets.list);
 
 function api(opts) {
   opts = opts || {};
