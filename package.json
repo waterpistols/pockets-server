@@ -4,8 +4,10 @@
   "dependencies": {
     "koa": "1.0.0",
     "koa-router": "5.2.2",
+    "koa-bodyparser": "2.0.1",
     "co-body": "4.0.0",
     "commander": "2.9.0",
-    "mongoose": "https://github.com/Automattic/mongoose/archive/4.1.10.tar.gz"
+    "mongoose": "https://github.com/Automattic/mongoose/archive/4.1.10.tar.gz",
+    "request-promise": "1.0.2"
   }
 }
