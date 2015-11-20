@@ -23,5 +23,5 @@ var app = api();
 
 // listen
 
-app.listen(process.env.PORT, 'localhost', ~~program.backlog);
-console.log('Listening on %s:%s', 'localhost', process.env.PORT);
+app.listen(process.env.PORT);
+console.log('Listening on %s:%s', process.env.PORT);
