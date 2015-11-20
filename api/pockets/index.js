@@ -58,13 +58,29 @@ exports.list = function* () {
       fun.name = 'Fun';
       fun.amount = fun.remaining = 100;
       fun.userId = this.state.userId;
-      fun.category = Pocket.categories.fixed;
+      fun.category = Pocket.categories.percent;
       fun.color = Pocket.color.fun;
       fun.icon = Pocket.icon.fun;
-      fun.percent = 0;
+      fun.percent = 15;
       yield fun.save();
       newPockets.push(fun);
 
       this.body = newPockets;
   }
+}
+
+exports.listPercent = function* () {
+  this.auth();
+
+  // Get pockets
+  var pockets = yield Pocket.find({ userId: this.state.userId, type: Pocket.categories.percent });
+
+  if(pockets.length > 0) {
+    this.body = pockets;
+
+  // If no pockets create defaults
+  } else {
+    this.throw(404, 'No pockets found');
+  }
+
 }
