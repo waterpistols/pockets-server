@@ -1,6 +1,5 @@
 var rp = require('request-promise');
 var co = require('co');
-var apn = require('apn');
 
 var Transaction = require(__src + 'models/transaction');
 var User = require(__src + 'models/user');
