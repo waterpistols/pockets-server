@@ -23,5 +23,5 @@ var app = api();
 
 // listen
 
-app.listen(program.port, program.host, ~~program.backlog);
-console.log('Listening on %s:%s', program.host, program.port);
+app.listen(8080, 'localhost', ~~program.backlog);
+console.log('Listening on %s:%s', 'localhost', 8080);
