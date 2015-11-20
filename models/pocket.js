@@ -26,7 +26,8 @@ Pocket.statics.color = {
   rent: 0,
   utilities: 1,
   groceries: 2,
-  fun: 3
+  fun: 3,
+  other: 4
 };
 
 Pocket.statics.icon = {

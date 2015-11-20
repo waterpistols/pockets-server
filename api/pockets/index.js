@@ -58,7 +58,7 @@ exports.list = function* () {
       fun.name = 'Fun';
       fun.amount = fun.remaining = 100;
       fun.userId = this.state.userId;
-      fun.category = Pocket.categories.percent;
+      fun.category = Pocket.categories.percentage;
       fun.color = Pocket.color.fun;
       fun.icon = Pocket.icon.fun;
       fun.percent = 15;
@@ -67,6 +67,20 @@ exports.list = function* () {
 
       this.body = newPockets;
   }
+}
+
+exports.createPocket = function* () {
+  this.auth();
+
+  var pocket = new Pocket();
+  pocket.name = this.request.body.name;
+  pocket.locked = this.request.body.hasOwnProperty('locked') ? true : false;
+  pocket.color = this.request.body.hasOwnProperty('color') ? this.request.body.color : Pocket.color.other;
+  pocket.userId = this.state.userId;
+
+  pocket.save();
+
+  this.body = pocket;
 }
 
 exports.listPercent = function* () {
