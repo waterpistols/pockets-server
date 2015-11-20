@@ -23,6 +23,7 @@ exports.login = function* () {
   try {
     var response = yield rp(options);
     if(response) {
+      response.token = this.state.token;
       this.body = response;
     } else {
       this.body = 'Not Found';
