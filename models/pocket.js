@@ -9,7 +9,6 @@ var Pocket = mongoose.Schema({
     "userId": { type: String },
     "category": { type: String },
     "color": { type: Number },
-    "percentage": { type: Number },
     "percent": { type: Number },
     "icon": { type: Number },
     "locked": { type: Boolean, default: false },

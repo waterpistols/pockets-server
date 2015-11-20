@@ -7,8 +7,23 @@ var User = require(__src + 'models/user');
 exports.list = function* () {
 
   this.auth();
-
   this.body = yield Transaction.find({ userId: this.state.mongoUserId });
+}
+
+exports.addtoPocket = function* () {
+  this.auth();
+
+  var transactionId = this.params.id;
+  var pocketId = this.request.body.pocketId;
+
+  var transaction = yield Transaction.findOne({ _id: transactionId });
+
+  if(transaction) {
+    yield Transaction.update({ _id: transactionId }, { pocketId: pocketId });
+    this.body = yield Transaction.findOne({ _id: transactionId });
+  } else {
+    this.body = 'Failed';
+  }
 }
 
 exports.sync = function* () {

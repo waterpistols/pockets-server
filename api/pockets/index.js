@@ -17,14 +17,13 @@ exports.list = function* () {
 
       // Rent
       var rent = new Pocket();
-      console.log(rent)
       rent.name = 'Rent';
       rent.amount = rent.remaining = 350;
       rent.userId = this.state.userId;
       rent.category = Pocket.categories.fixed;
       rent.color = Pocket.color.rent;
       rent.icon = Pocket.icon.rent;
-      rent.percentage = 100;
+      rent.percent = 0;
       rent.locked = true;
       yield rent.save();
       newPockets.push(rent);
@@ -37,7 +36,7 @@ exports.list = function* () {
       utilities.category = Pocket.categories.fixed;
       utilities.color = Pocket.color.utilities;
       utilities.icon = Pocket.icon.utilities;
-      utilities.percentage = 100;
+      utilities.percent = 0;
       yield utilities.save();
       newPockets.push(utilities);
 
@@ -49,7 +48,7 @@ exports.list = function* () {
       groceries.category = Pocket.categories.fixed;
       groceries.color = Pocket.color.groceries;
       groceries.icon = Pocket.icon.groceries;
-      groceries.percentage = 100;
+      groceries.percent = 0;
       rent.locked = true;
       yield groceries.save();
       newPockets.push(groceries);
@@ -62,7 +61,7 @@ exports.list = function* () {
       fun.category = Pocket.categories.fixed;
       fun.color = Pocket.color.fun;
       fun.icon = Pocket.icon.fun;
-      fun.percentage = 100;
+      fun.percent = 0;
       yield fun.save();
       newPockets.push(fun);
 

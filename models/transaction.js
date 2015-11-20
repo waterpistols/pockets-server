@@ -5,6 +5,7 @@ var Transaction = mongoose.Schema({
     "id" : { type: String },
     "date" : { type: String },
     "type" : { type: String },
+    "pocketId": { type: String },
     "description": { type: String },
     "userId": { type: String },
     "amount": { type: Number }

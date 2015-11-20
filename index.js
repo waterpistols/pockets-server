@@ -19,6 +19,8 @@ mongoose.connection.on('error', function(err) { console.log(err) });
 // Routes
 router.post('/v1/login', auth.login);
 router.get('/v1/pockets', pockets.list);
+
+router.put('/v1/transactions/:id/pocket', transactions.addtoPocket);
 router.get('/v1/transactions', transactions.list);
 router.get('/v1/transactions/sync', transactions.sync);
 
