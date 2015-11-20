@@ -19,12 +19,17 @@ exports.login = function* () {
   // Get user info
   var options = this.state.apiOptions;
   options.uri += 'commonapi/persons/' + this.state.userId;
-  console.log(options);
 
   try {
     var response = yield rp(options);
-    this.body = response;
+    if(response) {
+      this.body = response;
+    } else {
+      this.body = 'Not Found';
+    }
+
   } catch(error) {
-    console.log(error.message)
+    console.log(error);
+    this.body = 'Not Found';
   }
 }
