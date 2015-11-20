@@ -28,7 +28,6 @@ function api(opts) {
   var app = koa();
 
   app.use(setup);
-
   app.use(bodyParser());
 
   // routing
