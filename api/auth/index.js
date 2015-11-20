@@ -1,18 +1,21 @@
 var rp = require('request-promise');
 
+var User = require(__src + 'models/user');
+
 exports.login = function* () {
 
   // Select user
-  var token;
-  var body = this.request.body;
-  var context = this;
+  var user = yield User.findOne({ user: this.request.body.user });
 
-  context.state.users.forEach(function(value) {
-    if(value.user == body.user) {
-      context.state.token = value.token;
-      context.state.userId = value.userId;
-    }
-  });
+  // Update
+  User.update({ user: this.request.body.user }, this.request.body, { upsert: true });
+
+  if(user) {
+    this.state.token = user.token;
+    this.state.userId = user.userId;
+  } else {
+    this.throw(404);
+  }
 
   this.auth();
 
@@ -26,11 +29,9 @@ exports.login = function* () {
       response.token = this.state.token;
       this.body = response;
     } else {
-      this.body = 'Not Found';
+      this.throw(404);
     }
-
   } catch(error) {
-    console.log(error);
-    this.body = 'Not Found';
+    this.throw(404);
   }
 }
