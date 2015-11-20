@@ -23,6 +23,7 @@ router.get('/v1/pockets', pockets.list);
 router.post('/v1/pockets', pockets.createPocket);
 router.put('/v1/pockets/:id', pockets.updatePocket);
 router.get('/v1/pockets/percent', pockets.listPercent);
+router.post('/v1/pockets/percent', pockets.updatePercent);
 
 router.put('/v1/transactions/:id/pocket', transactions.addtoPocket);
 router.get('/v1/transactions', transactions.list);

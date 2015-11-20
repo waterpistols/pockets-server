@@ -161,5 +161,35 @@ exports.listPercent = function* () {
   } else {
     this.throw(404, 'No pockets found');
   }
+}
 
+exports.listPercent = function* () {
+  this.auth();
+
+  // Get pockets
+  var pockets = yield Pocket.find({ userId: this.state.userId, type: Pocket.categories.percent });
+
+  if(pockets.length > 0) {
+    this.body = pockets;
+
+  // If no pockets create defaults
+  } else {
+    this.throw(404, 'No pockets found');
+  }
+}
+
+exports.updatePercent = function* () {
+  this.auth();
+
+  var pockets = this.request.body;
+
+  if(pockets.length) {
+    for(var i=0; i<pockets.length; i++) {
+      var pocket = pockets[i];
+
+      yield Pocket.update({ _id: pocket._id }, { percent: pocket.percent });
+    }
+  }
+
+  this.body = 'Bravo';
 }
