@@ -1,4 +1,7 @@
+var rp = require('request-promise');
+
 var Pocket = require(__src + 'models/pocket');
+var Balance = require(__src + 'models/balance');
 
 exports.list = function* () {
 
@@ -77,6 +80,68 @@ exports.createPocket = function* () {
   pocket.locked = this.request.body.hasOwnProperty('locked') ? true : false;
   pocket.color = this.request.body.hasOwnProperty('color') ? this.request.body.color : Pocket.color.other;
   pocket.userId = this.state.userId;
+
+  pocket.save();
+
+  this.body = pocket;
+}
+
+exports.updatePocket = function* () {
+
+  var pocket = Pocket.findOne({ _id: this.params.id });
+
+  // Fixed
+  if(this.request.body.hasOwnProperty('category') && this.request.body.category === Pocket.categories.fixed) {
+    pocket.category = Pocket.categories.fixed;
+    pocket.amount = pocket.remaining = this.request.body.amount;
+
+  // Percent
+  } else {
+    pocket.category = Pocket.categories.percentage;
+    pocket.amount = pocket.remaining = 0;
+    pocket.percentage = this.request.body.percent;
+  }
+
+  // Get Pockets
+  var pockets = yield Pocket.find({ userId: this.state.userId });
+  var totalSpent = 0;
+
+  // Update balance
+  var options = JSON.parse(JSON.stringify(this.state.apiOptions));
+  options.uri += 'commonapi/persons/' + this.state.userId + '/accounts';
+
+  try {
+    var accounts = yield rp(options);
+    accounts = accounts.list[0];
+
+    balance.balance = accounts.availableBalance.value;
+    totalSpent = 0;
+
+    if(pockets.length) {
+        for(var i = 0; i < pockets.length; i++) {
+          var pocket = pockets[i];
+
+          if(pocket.category === Pocket.categories.fixed) {
+             totalSpent += pocket.amount - pocket.remaining;
+          }
+        }
+    }
+
+    balance.safeToSpend = balance.balance - totalSpent;
+    balance.userId = this.state.userId;
+    balance.save();
+
+  } catch(error) {
+    console.log(error);
+    this.throw(404);
+  }
+
+  // Time interval
+  if(this.request.body.hasOwnProperty('timeFrom')) {
+    pocket.timeFrom = this.request.body.timeFrom;
+    pocket.timeTo = this.request.body.timeTo;
+    pocket.timeFrequency = this.request.body.timeFrequency;
+  }
 
   pocket.save();
 

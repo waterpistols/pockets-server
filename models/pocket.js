@@ -12,6 +12,7 @@ var Pocket = mongoose.Schema({
     "percent": { type: Number },
     "icon": { type: Number },
     "locked": { type: Boolean, default: false },
+    "locations": [String],
     "timeFrom": { type: String },
     "timeTo": { type: String },
     "timeFrequency": { type: String }
@@ -37,6 +38,12 @@ Pocket.statics.icon = {
   fun: 3,
   none: 4
 };
+
+Pocket.static.frequency = {
+    workdays: 'workdays',
+    everyday: 'everyday',
+    weekends: 'weekends'
+}
 
 // Don't include these fields
 Pocket.statics.defaultProjection = function () {

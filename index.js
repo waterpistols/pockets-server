@@ -18,7 +18,10 @@ mongoose.connection.on('error', function(err) { console.log(err) });
 
 // Routes
 router.post('/v1/login', auth.login);
+
 router.get('/v1/pockets', pockets.list);
+router.post('/v1/pockets', pockets.createPocket);
+router.put('/v1/pockets/:id', pockets.updatePocket);
 router.get('/v1/pockets/percent', pockets.listPercent);
 
 router.put('/v1/transactions/:id/pocket', transactions.addtoPocket);
