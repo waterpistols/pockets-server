@@ -92,6 +92,13 @@ exports.updatePocket = function* () {
 
   var pocket = Pocket.findOne({ _id: this.params.id });
 
+  // General
+  if(this.request.body.hasOwnProperty('body')) {
+    pocket.name = this.request.body.name;
+    pocket.locked = this.request.body.hasOwnProperty('locked') ? true : false;
+    pocket.color = this.request.body.hasOwnProperty('color') ? this.request.body.color : Pocket.color.other;
+  }
+
   // Fixed
   if(this.request.body.hasOwnProperty('category') && this.request.body.category === Pocket.categories.fixed) {
     pocket.category = Pocket.categories.fixed;
