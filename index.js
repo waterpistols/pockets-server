@@ -10,6 +10,8 @@ global.__src = __dirname + '/';
 var auth = require('./api/auth');
 var pockets = require('./api/pockets');
 var transactions = require('./api/transactions');
+var balance = require('./api/balance');
+
 
 // DB Connect
 mongoose.connect('mongodb://pockets:asdasd@ds047792.mongolab.com:47792/pockets');
@@ -17,7 +19,9 @@ mongoose.connection.on('open', function() { console.log('Mongo Connected!') });
 mongoose.connection.on('error', function(err) { console.log(err) });
 
 // Routes
+console.log(balance)
 router.post('/v1/login', auth.login);
+router.get('/v1/balance', pockets.getIt);
 
 router.get('/v1/pockets', pockets.list);
 router.post('/v1/pockets', pockets.createPocket);

@@ -1,6 +1,6 @@
 var Balance = require(__src + 'models/balance');
 
-exports.balance = function* () {
+exports.getIt = function* () {
 
   this.auth();
 
@@ -9,6 +9,7 @@ exports.balance = function* () {
   if(balance) {
     this.body = balance;
   } else {
+
     this.throw(404);
   }
 }
