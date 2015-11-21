@@ -1,6 +1,8 @@
 var rp = require('request-promise');
 
 var Pocket = require(__src + 'models/pocket');
+var Location = require(__src + 'models/location');
+var Transaction = require(__src + 'models/transaction');
 var Balance = require(__src + 'models/balance');
 
 exports.list = function* () {
@@ -192,4 +194,19 @@ exports.updatePercent = function* () {
   }
 
   this.body = 'Bravo';
+}
+
+exports.pocketDetails = function* () {
+  var pocket = Pocket.findOne({ _id: this.params.id });
+
+  if(pocket !== null) {
+    pocket.transactions = yield Transaction.find({ pocketId: pocket._id });
+    pocket.locations = yield Location.find({ pocketId: pocket._id });
+  }
+}
+
+exports.deleteLocation = function* () {
+  Location.delete({ _id: this.params.id });
+
+  this.body = 'Deleted successfully';
 }
