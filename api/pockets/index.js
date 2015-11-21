@@ -204,12 +204,13 @@ exports.updatePercent = function* () {
 }
 
 exports.pocketDetails = function* () {
-  var pocket = Pocket.findOne({ _id: this.params.id });
+  var pocket = yield Pocket.findOne({ _id: this.params.id });
 
   if(pocket !== null) {
     pocket.transactions = yield Transaction.find({ pocketId: pocket._id });
     pocket.locations = yield Location.find({ pocketId: pocket._id });
   }
+  this.body = pocket;
 }
 
 exports.deleteLocation = function* () {
