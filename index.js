@@ -11,7 +11,7 @@ var auth = require('./api/auth');
 var pockets = require('./api/pockets');
 var transactions = require('./api/transactions');
 var balance = require('./api/balance');
-
+var notifications = require('./api/notifications');
 
 // DB Connect
 mongoose.connect('mongodb://pockets:asdasd@ds047792.mongolab.com:47792/pockets');
@@ -19,9 +19,9 @@ mongoose.connection.on('open', function() { console.log('Mongo Connected!') });
 mongoose.connection.on('error', function(err) { console.log(err) });
 
 // Routes
-console.log(balance)
+
 router.post('/v1/login', auth.login);
-router.get('/v1/balance', pockets.getIt);
+router.get('/v1/balance', balance.getIt);
 
 router.get('/v1/pockets', pockets.list);
 router.post('/v1/pockets', pockets.createPocket);
@@ -29,6 +29,10 @@ router.put('/v1/pockets/:id', pockets.updatePocket);
 router.get('/v1/pockets/:id', pockets.pocketDetails);
 router.get('/v1/pockets/percent', pockets.listPercent);
 router.post('/v1/pockets/percent', pockets.updatePercent);
+
+router.get('/v1/notifications', notifications.polling);
+router.put('/v1/notifications/:id', notifications.see);
+router.post('/v1/notifications', notifications.create);
 
 router.delete('/v1/location/:id', pockets.deleteLocation);
 
