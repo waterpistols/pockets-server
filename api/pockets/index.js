@@ -124,14 +124,27 @@ exports.updatePocket = function* () {
     accounts = accounts.list[0];
 
     balance.balance = accounts.availableBalance.value;
-    totalSpent = 0;
+    var totalFixed = 0;
+    var totalSpent = 0;
+    var remaining = 0;
 
     if(pockets.length) {
         for(var i = 0; i < pockets.length; i++) {
           var pocket = pockets[i];
 
           if(pocket.category === Pocket.categories.fixed) {
-             totalSpent += pocket.amount - pocket.remaining;
+             totalFixed += pocket.amount;
+          }
+        }
+
+        totalSpent = totalFixed;
+        remaining = balance.balance - totalFixed;
+
+        for(var i = 0; i < pockets.length; i++) {
+          var pocket = pockets[i];
+
+          if(pocket.category === Pocket.categories.fixed) {
+             totalSpent += pocket.percent * remaining / 100;
           }
         }
     }
