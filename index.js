@@ -35,7 +35,7 @@ router.get('/v1/notifications', notifications.polling);
 router.put('/v1/notifications/:id', notifications.see);
 router.post('/v1/notifications', notifications.create);
 
-router.delete('/v1/location/:id', pockets.deleteLocation);
+router.delete('/v1/locations/:id', pockets.deleteLocation);
 
 router.put('/v1/transactions/:id/pocket', transactions.addtoPocket);
 router.get('/v1/transactions', transactions.list);

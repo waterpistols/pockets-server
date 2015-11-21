@@ -228,7 +228,8 @@ exports.pocketDetails = function* () {
 }
 
 exports.deleteLocation = function* () {
-  Location.delete({ _id: this.params.id });
+  console.log('a')
+  yield Location.remove({ _id: this.params.id });
 
   this.body = 'Deleted successfully';
 }
