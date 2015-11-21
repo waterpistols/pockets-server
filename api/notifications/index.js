@@ -5,6 +5,11 @@ exports.polling = function* () {
 
   var notifications = yield Notification.find({ userId: this.state.userId, seen: false });
   if(notifications.length) {
+    for(var i = 0; i < notifications.length; i++) {
+      var notification = notifications[i];
+      Notification.update({ _id: notification._id }, { seen: true });
+    }
+
     this.body = notifications;
   } else {
     this.body = [];
