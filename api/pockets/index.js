@@ -218,6 +218,7 @@ exports.updatePercent = function* () {
 
 exports.pocketDetails = function* () {
   var pocket = yield Pocket.findOne({ _id: this.params.id });
+  pocket = pocket.toObject();
 
   if(pocket !== null) {
     pocket.transactions = yield Transaction.find({ pocketId: pocket._id });
