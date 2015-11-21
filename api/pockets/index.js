@@ -222,7 +222,7 @@ exports.pocketDetails = function* () {
 
   if(pocket !== null) {
     pocket.transactions = yield Transaction.find({ pocketId: pocket._id });
-    pocket.locations = yield Location.find({ pocketId: pocket._id });
+    pocket.locations = yield Location.find();
   }
   this.body = pocket;
 }
