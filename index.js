@@ -2,6 +2,7 @@ var koa = require('koa');
 var router = require('koa-router')();
 var bodyParser = require('koa-bodyparser');
 var mongoose = require('mongoose');
+var cors = require('kcors');
 var setup = require('./setup.js');
 
 global.__src = __dirname + '/';
@@ -45,8 +46,15 @@ function api(opts) {
   opts = opts || {};
   var app = koa();
 
+  app.use(cors());
   app.use(setup);
   app.use(bodyParser());
+
+  app.use(function *(next){
+    this.set('Access-Control-Allow-Origin', '*');
+    typeof next.next === 'function' ? yield *next : yield next;
+
+  });
 
   // routing
   app.use(router.routes());

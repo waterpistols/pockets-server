@@ -2,13 +2,14 @@
   "name": "pockets-server",
   "version": "0.0.1",
   "dependencies": {
-    "koa": "1.0.0",
-    "koa-router": "5.2.2",
-    "koa-bodyparser": "2.0.1",
+    "co": "4.6.0",
     "co-body": "4.0.0",
     "commander": "2.9.0",
+    "kcors": "^1.0.1",
+    "koa": "1.0.0",
+    "koa-bodyparser": "2.0.1",
+    "koa-router": "5.2.2",
     "mongoose": "https://github.com/Automattic/mongoose/archive/4.1.10.tar.gz",
-    "request-promise": "1.0.2",
-    "co": "4.6.0"
+    "request-promise": "1.0.2"
   }
 }
